@@ -26,5 +26,8 @@ public class User {
     private String password;
     @Column(nullable = false)
     private String role;
+    @OneToOne(mappedBy = "owner")
+    private Account account;
+
 
 }

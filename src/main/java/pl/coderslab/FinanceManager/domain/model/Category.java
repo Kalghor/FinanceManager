@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "categories")
@@ -15,12 +16,14 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "category_name")
+    private String categoryName;
     @Column(name = "description")
     private String description;
     @Column(name = "actual_value")
-    private Double actualValue;
-//    @Column(name = "date")
-
-
-
+    private String actualValue;
+    @Column(name = "date")
+    private LocalDate localDate;
+    @ManyToOne
+    private Account account;
 }

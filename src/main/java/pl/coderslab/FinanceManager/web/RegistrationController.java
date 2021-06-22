@@ -21,12 +21,12 @@ public class RegistrationController {
     @GetMapping
     public String prepareRegistrationPage(Model model) {
         model.addAttribute("user", new User());
-        return "views/register";
+        return "register";
     }
 
     @PostMapping
     public String processRegistrationPage(User user) {
         userManagerService.registerUser(user);
-        return "views/login";
+        return "login";
     }
 }
