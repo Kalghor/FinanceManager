@@ -17,4 +17,8 @@ public class AccountService {
     public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
+
+    public String getBalance(Long accountId){
+        return accountRepository.findByUsername(accountId).getBalance();
+    }
 }

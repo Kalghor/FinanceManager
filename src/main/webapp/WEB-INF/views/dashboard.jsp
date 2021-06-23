@@ -12,13 +12,18 @@
     <title>Title</title>
 </head>
 <body>
-
-<c:forEach var="category" items="${categories}">
+<div>
     <div>
-            ${category.categoryName} </br>
-            ${category.actualValue}
+        Account balance: ${accountBalance}
     </div>
-</c:forEach>
+    <c:forEach var="category" items="${categories}">
+        <div style="border-bottom-color: black; border-style: solid; padding: 20px; display: inline-block">
+                ${category.categoryName} </br>
+                ${category.actualValue}
+        </div>
+    </c:forEach>
+</div>
+
 
 </body>
 </html>

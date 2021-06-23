@@ -21,4 +21,8 @@ public class CategoryService {
     public List<Category> findCategories(Long userId){
         return categoryRepository.findAllByUsername(userId);
     }
+
+    public List<String> findCategoryNames(Long accountId){
+        return categoryRepository.findDistinctByCategoryName(accountId);
+    }
 }

@@ -1,5 +1,6 @@
 package pl.coderslab.FinanceManager.service;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +9,8 @@ import pl.coderslab.FinanceManager.domain.model.User;
 //import pl.coderslab.FinanceManager.domain.repository.AccountRepository;
 import pl.coderslab.FinanceManager.domain.repository.AccountRepository;
 import pl.coderslab.FinanceManager.domain.repository.UserRepository;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -31,5 +34,10 @@ public class UserManagerService {
         accountRepository.save(account);
         user.setAccount(account);
         userRepository.save(user);
+    }
+
+    public User findByUsername(String username){
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        return userOptional.orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }
