@@ -25,5 +25,6 @@ public class Category {
     @Column(name = "date")
     private LocalDate localDate;
     @ManyToOne
+    @JoinColumn(name = "account_id")
     private Account account;
 }

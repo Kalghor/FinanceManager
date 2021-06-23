@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,6 +19,7 @@ public class Account {
     private Long id;
     private String balance = "0";
     @OneToOne
+    @JoinColumn(name = "username")
     private User owner;
     @OneToMany(mappedBy = "account")
     private List<Category> categories;

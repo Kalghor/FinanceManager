@@ -6,6 +6,7 @@ import pl.coderslab.FinanceManager.domain.model.Category;
 import pl.coderslab.FinanceManager.domain.repository.CategoryRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -17,7 +18,7 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<Category> findCategories(){
-        return categoryRepository.findAll();
+    public List<Category> findCategories(Long userId){
+        return categoryRepository.findAllByUsername(userId);
     }
 }
