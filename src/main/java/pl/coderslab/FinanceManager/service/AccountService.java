@@ -21,4 +21,8 @@ public class AccountService {
     public String getBalance(Long accountId){
         return accountRepository.findByUsername(accountId).getBalance();
     }
+
+    public void setBalance(Long accountId, String balance){
+        accountRepository.findByUsername(accountId).setBalance(balance);
+    }
 }

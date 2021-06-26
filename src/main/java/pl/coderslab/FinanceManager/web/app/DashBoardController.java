@@ -3,15 +3,17 @@ package pl.coderslab.FinanceManager.web.app;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import pl.coderslab.FinanceManager.domain.dto.AccountDto;
+import pl.coderslab.FinanceManager.domain.dto.CategoryDto;
 import pl.coderslab.FinanceManager.domain.model.Category;
 import pl.coderslab.FinanceManager.domain.model.User;
 import pl.coderslab.FinanceManager.service.AccountService;
 import pl.coderslab.FinanceManager.service.CategoryService;
 import pl.coderslab.FinanceManager.service.UserManagerService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +21,9 @@ import java.util.List;
 @RequestMapping("/app")
 public class DashBoardController {
 
-    private CategoryService categoryService;
-    private AccountService accountService;
-    private UserManagerService userManagerService;
+    private final CategoryService categoryService;
+    private final AccountService accountService;
+    private final UserManagerService userManagerService;
 
     public DashBoardController(CategoryService categoryService, AccountService accountService, UserManagerService userManagerService) {
         this.categoryService = categoryService;
@@ -41,16 +43,94 @@ public class DashBoardController {
     }
 
     @GetMapping("/dashboard")
-    public String showDashBoard(Authentication currentUser, Model model) {
+    public String showDashBoard() {
         return "dashboard";
+    }
+
+    @GetMapping("/changeBalance")
+    public String prepareChangeBalance(Model model){
+        model.addAttribute("account", new AccountDto());
+        return "changeBalance";
+    }
+
+    @PostMapping("/changeBalance")
+    public String processChangeBalance(AccountDto accountDto, BindingResult bindingResult, Authentication currentUser){
+        if (bindingResult.hasErrors()) {
+            return "changeBalance";
+        }
+        User user = userManagerService.findByUsername(currentUser.getName());
+        if(!accountDto.getBalance().equals("")){
+            accountService.setBalance(user.getAccount().getId(), accountDto.getBalance());
+        } else {
+            double num1 = Double.parseDouble(user.getAccount().getBalance());
+            double num2 = Double.parseDouble(accountDto.getAmountToAdd());
+            double result = num1 + num2;
+            accountService.setBalance(user.getAccount().getId(), String.valueOf(result));
+        }
+        return "redirect:dashboard";
+    }
+
+    @GetMapping("/addExpense")
+    public String prepareAddExpense(Model model){
+        model.addAttribute("categoryDto", new CategoryDto());
+        return "addExpense";
+    }
+
+    @PostMapping("/addExpense")
+    public String processAddExpense(CategoryDto categoryDto, BindingResult bindingResult, Authentication currentUser){
+        if (bindingResult.hasErrors()) {
+            return "addExpense";
+        }
+        User user = userManagerService.findByUsername(currentUser.getName());
+        Category category = new Category(null, categoryDto.getCategoryName(), categoryDto.getDescription(), categoryDto.getActualValue(), LocalDate.now(), user.getAccount());
+        categoryService.addExpense(category);
+        return "redirect:dashboard";
+    }
+
+    @GetMapping("/showDetails/{categoryName}")
+    public String showDetails(@PathVariable String categoryName, Authentication currentUser, Model model){
+        User user = userManagerService.findByUsername(currentUser.getName());
+        model.addAttribute("rows", categoryService.findCategoryByName(categoryName, user.getAccount().getId()));
+        return "showDetails";
+    }
+
+    @GetMapping("/delete/{id:\\d+}")
+    public String deleteOneEntry(@PathVariable Long id){
+        categoryService.deleteOneEntry(id);
+        return "redirect:dashboard";
+    }
+
+    @GetMapping("/deleteAll/{categoryName}")
+    public String deleteAllFromCategory(@PathVariable String categoryName, Authentication currentUser){
+        User user = userManagerService.findByUsername(currentUser.getName());
+        categoryService.deleteAllFromCategory(categoryName, user.getAccount().getId());
+        return "dashboard";
+    }
+
+    @GetMapping("/edit/{id:\\d+}")
+    public String prepareEditExpense(Model model, @PathVariable Long id){
+        Category categoryById = categoryService.findCategoryById(id);
+        CategoryDto categoryDto = new CategoryDto(categoryById.getId(),categoryById.getCategoryName(),categoryById.getDescription(),categoryById.getActualValue(),categoryById.getLocalDate());
+        model.addAttribute("categoryDto", categoryDto);
+        return "edit";
+    }
+
+    @PostMapping("/edit")
+    public String processEditExpense(CategoryDto categoryDto, BindingResult bindingResult, Authentication currentUser){
+        if (bindingResult.hasErrors()) {
+            return "edit";
+        }
+        User user = userManagerService.findByUsername(currentUser.getName());
+        Category category = new Category(categoryDto.getId(), categoryDto.getCategoryName(), categoryDto.getDescription(), categoryDto.getActualValue(), LocalDate.now(), user.getAccount());
+        categoryService.edit(category);
+        return "redirect:dashboard";
     }
 
     private List<Category> loadCategoriesToView(Authentication currentUser){
         User user = userManagerService.findByUsername(currentUser.getName());
         List<String> categoryNames = categoryService.findCategoryNames(user.getId());
         List<Category> categories = categoryService.findCategories(user.getId());
-        List<Category> groupByCategoryName = categoryListGroupByCategoryName(categoryNames, categories);
-        return groupByCategoryName;
+        return categoryListGroupByCategoryName(categoryNames, categories);
     }
 
     private List<Category> categoryListGroupByCategoryName(List<String> categoryNames, List<Category> categories){
@@ -71,10 +151,10 @@ public class DashBoardController {
     }
 
     private String sumCategoryValue(List<Category> categories){
-        Double sum = 0.0;
+        double sum = 0.0;
         for(Category c : categories){
             sum += Double.parseDouble(c.getActualValue());
         }
-        return sum.toString();
+        return Double.toString(sum);
     }
 }
