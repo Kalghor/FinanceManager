@@ -13,6 +13,7 @@ import pl.coderslab.FinanceManager.service.AccountService;
 import pl.coderslab.FinanceManager.service.CategoryService;
 import pl.coderslab.FinanceManager.service.UserManagerService;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class DashBoardController {
     }
 
     @PostMapping("/changeBalance")
-    public String processChangeBalance(AccountDto accountDto, BindingResult bindingResult, Authentication currentUser){
+    public String processChangeBalance(@Valid AccountDto accountDto, BindingResult bindingResult, Authentication currentUser){
         if (bindingResult.hasErrors()) {
             return "changeBalance";
         }
@@ -77,7 +78,7 @@ public class DashBoardController {
     }
 
     @PostMapping("/addExpense")
-    public String processAddExpense(CategoryDto categoryDto, BindingResult bindingResult, Authentication currentUser){
+    public String processAddExpense(@Valid CategoryDto categoryDto, BindingResult bindingResult, Authentication currentUser){
         if (bindingResult.hasErrors()) {
             return "addExpense";
         }
@@ -116,7 +117,7 @@ public class DashBoardController {
     }
 
     @PostMapping("/edit")
-    public String processEditExpense(CategoryDto categoryDto, BindingResult bindingResult, Authentication currentUser){
+    public String processEditExpense(@Valid CategoryDto categoryDto, BindingResult bindingResult, Authentication currentUser){
         if (bindingResult.hasErrors()) {
             return "edit";
         }

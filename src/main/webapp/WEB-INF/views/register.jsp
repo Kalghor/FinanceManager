@@ -11,22 +11,22 @@
     <div>
         <label>Username:
             <form:input path="username" />
-        </label>
+        </label><form:errors path="username"/><br/>
     </div>
     <div>
         <label>Password:
             <form:password path="password" />
-        </label>
+        </label><form:errors path="password"/><br/>
     </div>
     <div>
         <label>First name:
             <form:input path="firstName" />
-        </label>
+        </label><form:errors path="firstName"/><br/>
     </div>
     <div>
         <label>Last name:
             <form:input path="lastName" />
-        </label>
+        </label><form:errors path="lastName"/><br/>
     </div>
     <button type="submit">Register</button>
 </form:form>
