@@ -36,6 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/").permitAll()
+                .antMatchers("/static","/static/**","/img","/img/**").permitAll()
                 .antMatchers("/app/dashboard", "/app/dashboard/", "/app/dashboard/*").hasRole("USER")
                 .antMatchers("/static", "/static/**", "/webjars", "/webjars/**").permitAll()
                 .antMatchers("/*").permitAll()

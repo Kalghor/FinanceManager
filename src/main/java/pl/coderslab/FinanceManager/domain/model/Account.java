@@ -17,7 +17,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String balance = "0";
+    private Long balance = 0L;
     @OneToOne
     @JoinColumn(name = "username")
     private User owner;

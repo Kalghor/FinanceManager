@@ -30,7 +30,7 @@ public class UserManagerService {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         user.setRole("ROLE_USER");
-        Account account = new Account(null, "0", user, null);
+        Account account = new Account(null, 0L, user, null);
         accountRepository.save(account);
         user.setAccount(account);
         userRepository.save(user);

@@ -18,11 +18,11 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public String getBalance(Long accountId){
+    public Long getBalance(Long accountId){
         return accountRepository.findByUsername(accountId).getBalance();
     }
 
-    public void setBalance(Long accountId, String balance){
+    public void setBalance(Long accountId, Long balance){
         accountRepository.findByUsername(accountId).setBalance(balance);
     }
 }

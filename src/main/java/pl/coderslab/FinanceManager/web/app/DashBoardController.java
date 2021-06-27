@@ -33,13 +33,15 @@ public class DashBoardController {
     }
 
     @ModelAttribute("accountBalance")
-    public String accountBalance(Authentication currentUser){
+    public String accountBalance(Authentication currentUser) {
         User user = userManagerService.findByUsername(currentUser.getName());
-        return user.getAccount().getBalance();
+        Long partOfTheTotal = user.getAccount().getBalance() / 100;
+        Long decimalPart = user.getAccount().getBalance() % 100;
+        return partOfTheTotal + "," + decimalPart + " zł";
     }
 
     @ModelAttribute("categories")
-    public List<Category> categories(Authentication currentUser){
+    public List<Category> categories(Authentication currentUser) {
         return loadCategoriesToView(currentUser);
     }
 
@@ -49,36 +51,36 @@ public class DashBoardController {
     }
 
     @GetMapping("/changeBalance")
-    public String prepareChangeBalance(Model model){
+    public String prepareChangeBalance(Model model) {
         model.addAttribute("account", new AccountDto());
         return "changeBalance";
     }
 
     @PostMapping("/changeBalance")
-    public String processChangeBalance(@Valid AccountDto accountDto, BindingResult bindingResult, Authentication currentUser){
+    public String processChangeBalance(@Valid AccountDto accountDto, BindingResult bindingResult, Authentication currentUser) {
         if (bindingResult.hasErrors()) {
             return "changeBalance";
         }
         User user = userManagerService.findByUsername(currentUser.getName());
-        if(!accountDto.getBalance().equals("")){
-            accountService.setBalance(user.getAccount().getId(), accountDto.getBalance());
+        if (accountDto.getAmountToAdd().equals("")) {
+            accountService.setBalance(user.getAccount().getId(), Long.parseLong(accountDto.getBalance()) * 100L);
         } else {
-            double num1 = Double.parseDouble(user.getAccount().getBalance());
-            double num2 = Double.parseDouble(accountDto.getAmountToAdd());
-            double result = num1 + num2;
-            accountService.setBalance(user.getAccount().getId(), String.valueOf(result));
+            Long num1 = user.getAccount().getBalance();
+            Long num2 = Long.parseLong(accountDto.getAmountToAdd()) * 100L;
+            Long result = num1 + num2;
+            accountService.setBalance(user.getAccount().getId(), result);
         }
         return "redirect:dashboard";
     }
 
     @GetMapping("/addExpense")
-    public String prepareAddExpense(Model model){
+    public String prepareAddExpense(Model model) {
         model.addAttribute("categoryDto", new CategoryDto());
         return "addExpense";
     }
 
     @PostMapping("/addExpense")
-    public String processAddExpense(@Valid CategoryDto categoryDto, BindingResult bindingResult, Authentication currentUser){
+    public String processAddExpense(@Valid CategoryDto categoryDto, BindingResult bindingResult, Authentication currentUser) {
         if (bindingResult.hasErrors()) {
             return "addExpense";
         }
@@ -89,35 +91,35 @@ public class DashBoardController {
     }
 
     @GetMapping("/showDetails/{categoryName}")
-    public String showDetails(@PathVariable String categoryName, Authentication currentUser, Model model){
+    public String showDetails(@PathVariable String categoryName, Authentication currentUser, Model model) {
         User user = userManagerService.findByUsername(currentUser.getName());
         model.addAttribute("rows", categoryService.findCategoryByName(categoryName, user.getAccount().getId()));
         return "showDetails";
     }
 
     @GetMapping("/delete/{id:\\d+}")
-    public String deleteOneEntry(@PathVariable Long id){
+    public String deleteOneEntry(@PathVariable Long id) {
         categoryService.deleteOneEntry(id);
         return "redirect:dashboard";
     }
 
     @GetMapping("/deleteAll/{categoryName}")
-    public String deleteAllFromCategory(@PathVariable String categoryName, Authentication currentUser){
+    public String deleteAllFromCategory(@PathVariable String categoryName, Authentication currentUser) {
         User user = userManagerService.findByUsername(currentUser.getName());
         categoryService.deleteAllFromCategory(categoryName, user.getAccount().getId());
         return "dashboard";
     }
 
     @GetMapping("/edit/{id:\\d+}")
-    public String prepareEditExpense(Model model, @PathVariable Long id){
+    public String prepareEditExpense(Model model, @PathVariable Long id) {
         Category categoryById = categoryService.findCategoryById(id);
-        CategoryDto categoryDto = new CategoryDto(categoryById.getId(),categoryById.getCategoryName(),categoryById.getDescription(),categoryById.getActualValue(),categoryById.getLocalDate());
+        CategoryDto categoryDto = new CategoryDto(categoryById.getId(), categoryById.getCategoryName(), categoryById.getDescription(), categoryById.getActualValue(), categoryById.getLocalDate());
         model.addAttribute("categoryDto", categoryDto);
         return "edit";
     }
 
     @PostMapping("/edit")
-    public String processEditExpense(@Valid CategoryDto categoryDto, BindingResult bindingResult, Authentication currentUser){
+    public String processEditExpense(@Valid CategoryDto categoryDto, BindingResult bindingResult, Authentication currentUser) {
         if (bindingResult.hasErrors()) {
             return "edit";
         }
@@ -127,14 +129,14 @@ public class DashBoardController {
         return "redirect:dashboard";
     }
 
-    private List<Category> loadCategoriesToView(Authentication currentUser){
+    private List<Category> loadCategoriesToView(Authentication currentUser) {
         User user = userManagerService.findByUsername(currentUser.getName());
         List<String> categoryNames = categoryService.findCategoryNames(user.getId());
         List<Category> categories = categoryService.findCategories(user.getId());
         return categoryListGroupByCategoryName(categoryNames, categories);
     }
 
-    private List<Category> categoryListGroupByCategoryName(List<String> categoryNames, List<Category> categories){
+    private List<Category> categoryListGroupByCategoryName(List<String> categoryNames, List<Category> categories) {
         List<Category> resultList = new ArrayList<>();
         for (int i = 0; i < categoryNames.size(); i++) {
             List<Category> cat = new ArrayList<>();
@@ -151,9 +153,9 @@ public class DashBoardController {
         return resultList;
     }
 
-    private String sumCategoryValue(List<Category> categories){
+    private String sumCategoryValue(List<Category> categories) {
         double sum = 0.0;
-        for(Category c : categories){
+        for (Category c : categories) {
             sum += Double.parseDouble(c.getActualValue());
         }
         return Double.toString(sum);
