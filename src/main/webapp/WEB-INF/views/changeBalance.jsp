@@ -7,6 +7,7 @@
 </head>
 <body>
 <div>
+    Account balance: ${accountBalance} </br>
     <form:form method="post" modelAttribute="account">
         <label>Amount to be added:
             <form:input path="amountToAdd"/>

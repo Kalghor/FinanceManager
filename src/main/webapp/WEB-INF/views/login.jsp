@@ -36,9 +36,7 @@
                 <button class="btn btn-primary" type="submit">Login</button>
             </div>
         </div>
-        <%--    Username: <form:input path="username"/><br/>--%>
-        <%--    Password: <form:password /><br/>--%>
-        <%--    <button type="submit">Login</button>--%>
+
     </form:form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

@@ -24,14 +24,20 @@
                 <td>${r.localDate}</td>
                 <td>
                     <a href='<c:url value="/app/edit/${r.id}"/>'>Edit</a>
-                    <a href='<c:url value="/app/delete/${r.id}"/>'>Delete</a>
+                    <form action="/app/delete" method="POST">
+                        <input type="hidden" name="id" value="${r.id}" />
+                        <input type="submit" value="Delete">
+                    </form>
                 </td>
             </tr>
         </c:forEach>
         </tfoot>
     </table>
-    <a href='<c:url value="/app/deleteAll/${categoryName}"/>'>DeleteAll</a>
-
+    <form action="/app/deleteAll" method="POST">
+        <input type="hidden" name="categoryName" value="${categoryName}" />
+        <input type="submit" value="Delete All">
+    </form>
+<%--    <a href='<c:url value="/app/deleteAll/${categoryName}"/>'>DeleteAll</a>--%>
 </div>
 </body>
 </html>

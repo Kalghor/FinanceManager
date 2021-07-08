@@ -19,31 +19,33 @@
                     <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
                     <form:input path="username" type="text" class="form-control" id="validationTooltipUsername"
                                 aria-describedby="validationTooltipUsernamePrepend" required="true"/>
-<%--                    <div class="invalid-tooltip">--%>
+                    <div class="pt-3">
                         <form:errors class="alert alert-danger" role="alert" path="username"/>
-<%--                    </div>--%>
+                    </div>
                 </div>
             </div>
             <div class="col-xl-6 col-md-6 position-relative">
                 <label for="inputPassword5" class="form-label">Password</label>
                 <form:password path="password" class="form-control" id="inputPassword5" required="true"/>
-                <form:errors class="alert alert-danger" role="alert" path="password"/>
+                <div class="pt-3 pb-4">
+                    <form:errors class="alert alert-danger" role="alert" path="password"/>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-xl-6 col-md-6">
                 <label for="validationCustom01" class="form-label">First name</label>
                 <form:input path="firstName" type="text" class="form-control" id="validationCustom01" required="true"/>
-<%--                <div class="invalid-tooltip">--%>
+                <div class="pt-3 pb-4">
                     <form:errors class="alert alert-danger" role="alert" path="firstName"/>
-<%--                </div>--%>
+                </div>
             </div>
             <div class="col-xl-6 col-md-6">
                 <label for="validationCustom02" class="form-label">Last name</label>
                 <form:input path="lastName" type="text" class="form-control" id="validationCustom02" required="true"/>
-<%--                <div class="invalid-tooltip">--%>
+                <div class="pt-3">
                     <form:errors class="alert alert-danger" role="alert" path="lastName"/>
-<%--                </div>--%>
+                </div>
             </div>
         </div>
         <div class="row">
