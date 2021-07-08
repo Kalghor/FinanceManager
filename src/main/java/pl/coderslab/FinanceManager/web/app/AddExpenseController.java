@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.FinanceManager.domain.convarter.CategoryConverter;
 import pl.coderslab.FinanceManager.domain.dto.CategoryDto;
 import pl.coderslab.FinanceManager.domain.model.Category;
 import pl.coderslab.FinanceManager.domain.model.User;
@@ -39,8 +40,10 @@ public class AddExpenseController {
         if (bindingResult.hasErrors()) {
             return "addExpense";
         }
+        CategoryConverter categoryConverter = new CategoryConverter();
         User user = userManagerService.findByUsername(currentUser.getName());
-        Category category = new Category(null, categoryDto.getCategoryName(), categoryDto.getDescription(), categoryDto.getActualValue(), LocalDate.now(), user.getAccount());
+        Category category = categoryConverter.convert(categoryDto);
+        category.setAccount(user.getAccount());
         categoryService.addExpense(category);
         return "redirect:dashboard";
     }
