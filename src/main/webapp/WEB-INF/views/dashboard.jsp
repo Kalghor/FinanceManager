@@ -1,10 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>Dashboard</title>
-</head>
-<body>
+<%@include file="header.jsp" %>
 <div>
     <div style="margin: 10px">
         Account balance: ${accountBalance} </br>
@@ -30,5 +24,4 @@
         </a>
     </div>
 </div>
-</body>
-</html>
+<%@include file="footer.jsp" %>

@@ -38,22 +38,27 @@ public class ChangeBalanceController {
 
     @GetMapping("/changeBalance")
     public String prepareChangeBalance(Model model) {
-        model.addAttribute("account", new AccountDto());
+        model.addAttribute("accountDto", new AccountDto());
         return "changeBalance";
     }
 
     @PostMapping("/changeBalance")
-    public String processChangeBalance(@Valid AccountDto accountDto, BindingResult bindingResult, Authentication currentUser) {
+    public String processChangeBalance(@Valid AccountDto accountDto, BindingResult bindingResult, Authentication currentUser, Model model) {
         if (bindingResult.hasErrors()) {
+            return "changeBalance";
+        }
+        if(accountDto.getAmountToAdd().equals("") && accountDto.getBalance().equals("")){
+            model.addAttribute("requiredParam", "Complete one of the values");
             return "changeBalance";
         }
         User user = userManagerService.findByUsername(currentUser.getName());
         if (accountDto.getAmountToAdd().equals("")) {
-            accountService.setBalance(user.getAccount().getId(), Long.parseLong(accountDto.getBalance()) * 100L);
+            Double amountToAdd = Double.parseDouble(accountDto.getBalance()) * 100d;
+            accountService.setBalance(user.getAccount().getId(), amountToAdd.longValue());
         } else {
             Long num1 = user.getAccount().getBalance();
-            Long num2 = Long.parseLong(accountDto.getAmountToAdd()) * 100L;
-            Long result = num1 + num2;
+            Double num2 = Double.parseDouble(accountDto.getAmountToAdd()) * 100d;
+            Long result = num1 + num2.longValue();
             accountService.setBalance(user.getAccount().getId(), result);
         }
         return "redirect:dashboard";

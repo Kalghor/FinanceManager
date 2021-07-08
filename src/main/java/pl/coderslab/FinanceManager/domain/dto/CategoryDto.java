@@ -6,17 +6,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 public class CategoryDto {
+
     private Long id;
+
     @NotBlank
     private String categoryName;
+
     @NotBlank
     private String description;
+
     @NotBlank
+    @Pattern(regexp = "(^[1-9]{1,1}[0-9]+\\.[0-9]{1,2})||(^[1-9]\\d+)||([1-9]+)||(0\\.[0-9]{1,2})")
     private String actualValue;
+
     private LocalDate localDate;
 }

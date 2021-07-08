@@ -1,11 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<%@include file="header.jsp" %>
 <div>
     <form:form method="post" modelAttribute="categoryDto" action="/app/edit">
         <form:hidden path="id" />
@@ -21,5 +14,4 @@
         <form:button type="submit">Next</form:button>
     </form:form>
 </div>
-</body>
-</html>
+<%@include file="footer.jsp" %>

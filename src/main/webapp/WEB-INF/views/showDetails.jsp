@@ -1,11 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<%@include file="header.jsp" %>
 <div>
     <table>
         <thead style="border-style: solid">
@@ -25,7 +18,7 @@
                 <td>
                     <a href='<c:url value="/app/edit/${r.id}"/>'>Edit</a>
                     <form action="/app/delete" method="POST">
-                        <input type="hidden" name="id" value="${r.id}" />
+                        <input type="hidden" name="id" value="${r.id}"/>
                         <input type="submit" value="Delete">
                     </form>
                 </td>
@@ -34,10 +27,8 @@
         </tfoot>
     </table>
     <form action="/app/deleteAll" method="POST">
-        <input type="hidden" name="categoryName" value="${categoryName}" />
+        <input type="hidden" name="categoryName" value="${categoryName}"/>
         <input type="submit" value="Delete All">
     </form>
-<%--    <a href='<c:url value="/app/deleteAll/${categoryName}"/>'>DeleteAll</a>--%>
 </div>
-</body>
-</html>
+<%@include file="footer.jsp" %>

@@ -1,15 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Registration</title>
-    <style type="text/css" rel="stylesheet">
-        <%@include file="../../css/bootstrap.min.css" %>
-    </style>
-</head>
-<body>
+<%@include file="header.jsp" %>
 <div class="p-5 shadow-lg p-3 mb-5 bg-body rounded mt-5" style="width: 50%; margin: auto">
     <form:form class="row g-3 needs-validation" method="post" modelAttribute="user" action="/register">
         <div class="row">
@@ -58,5 +47,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-</body>
-</html>
+<%@include file="footer.jsp" %>

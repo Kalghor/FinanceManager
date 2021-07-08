@@ -1,22 +1,19 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<%@include file="header.jsp" %>
 <div>
     Account balance: ${accountBalance} </br>
-    <form:form method="post" modelAttribute="account">
+    <form:form method="post" modelAttribute="accountDto">
         <label>Amount to be added:
             <form:input path="amountToAdd"/>
         </label><form:errors path="amountToAdd"/><br/>
         <label>Set the amount on the account
-            <form:input path="balance" />
+            <form:input path="balance"/>
         </label><form:errors path="balance"/><br/>
+        <c:if test="${not empty requiredParam}">
+            <div class="alert alert-danger pt-3 pb-4" role="alert">
+                    ${requiredParam}
+            </div>
+        </c:if>
         <form:button type="submit">Next</form:button>
     </form:form>
 </div>
-</body>
-</html>
+<%@include file="footer.jsp" %>
