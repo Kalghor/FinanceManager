@@ -16,9 +16,11 @@ public class CategoryDto {
     private Long id;
 
     @NotBlank
+    @Pattern(regexp = "[a-zA-Z ]+")
     private String categoryName;
 
     @NotBlank
+    @Pattern(regexp = "[a-zA-Z ]+")
     private String description;
 
     @NotBlank

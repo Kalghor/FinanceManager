@@ -31,7 +31,7 @@
                         ${requiredParam}
                 </div>
             </c:if>
-            <form:button class="btn btn-primary" type="submit">Next</form:button>
+            <form:button class="btn btn-primary" type="submit">Save</form:button>
         </form:form>
     </div>
 </div>

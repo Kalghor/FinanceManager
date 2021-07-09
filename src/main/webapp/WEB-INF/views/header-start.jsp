@@ -14,15 +14,3 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid justify-content-center">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link active" href="${pageContext.request.contextPath}/app/dashboard">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="${pageContext.request.contextPath}/logout">Logout</a>
-            </li>
-        </ul>
-    </div>
-</nav>
