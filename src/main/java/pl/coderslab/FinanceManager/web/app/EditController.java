@@ -32,8 +32,8 @@ public class EditController {
 
     @GetMapping("/edit/{id:\\d+}")
     public String prepareEditExpense(Model model, @PathVariable Long id) {
-        Category categoryById = categoryService.findCategoryById(id);
-        CategoryDto categoryDto = new CategoryDto(categoryById.getId(), categoryById.getCategoryName(), categoryById.getDescription(), categoryById.getActualValue(), categoryById.getLocalDate());
+        CategoryConverter categoryConverter = new CategoryConverter();
+        CategoryDto categoryDto = categoryConverter.convertToDto(categoryService.findCategoryById(id));
         model.addAttribute("categoryDto", categoryDto);
         model.addAttribute("oldValue", categoryDto.getActualValue());
         return "edit";
@@ -49,16 +49,18 @@ public class EditController {
         Category convertedCategory = categoryConverter.convert(categoryDto, category);
         User user = userManagerService.findByUsername(currentUser.getName());
         Account account = user.getAccount();
-        Double value = Double.parseDouble(category.getActualValue()) * 100d;
+        Double value = category.getActualValue().doubleValue();
         Double doubleOldValue = Double.parseDouble(oldValue) * 100d;
         Double result = 0.0;
         if (doubleOldValue < value) {
             result = value - doubleOldValue;
+            Long categoryValue = result.longValue();
+            accountService.setBalance(account.getId(), account.getBalance() - categoryValue);
         } else {
             result = doubleOldValue - value;
+            Long categoryValue = result.longValue();
+            accountService.setBalance(account.getId(), account.getBalance() + categoryValue);
         }
-        Long calegoryValue = result.longValue();
-        accountService.setBalance(account.getId(), account.getBalance() - calegoryValue);
         categoryService.edit(convertedCategory);
         return "redirect:dashboard";
     }

@@ -36,15 +36,38 @@
                                         <td>${r.localDate}</td>
                                         <td>${r.actualValue} zl</td>
                                         <td>
-                                            <div class="btn-group btn-group-sm" role="group" aria-label="Basic mixed styles example">
-                                                <a href='<c:url value="/app/edit/${r.id}"/>'><button type="button" class="btn btn-warning">Edit</button></a>
+                                            <div class="btn-group btn-group-sm" role="group"
+                                                 aria-label="Basic mixed styles example">
+                                                <a href='<c:url value="/app/edit/${r.id}"/>'>
+                                                    <button type="button" class="btn btn-warning">Edit</button>
+                                                </a>
                                                 <form action="/app/delete" method="POST">
                                                     <input type="hidden" name="id" value="${r.id}"/>
                                                     <input type="hidden" name="categoryName" value="${name}"/>
-                                                    <button type="submit" name="oldValue" value="${r.actualValue}" class="btn btn-danger">Delete</button>
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                        Delete
+                                                    </button>
+                                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Are you sure you want to delete the record?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" name="oldValue" value="${r.actualValue}"
+                                                                            class="btn btn-danger">Delete
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </form>
                                             </div>
-
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -52,7 +75,39 @@
                             </table>
                             <form action="/app/deleteAll" method="POST">
                                 <input type="hidden" name="categoryName" value="${categoryName}"/>
-                                <button type="submit" class="btn btn-sm btn-danger">Delete All</button>
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop2">
+                                    Delete All
+                                </button>
+                                <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static"
+                                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel2">Delete the entire
+                                                    category</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Do you want to add all expenses from category: ${categoryName} to your
+                                                account balance?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" name="checkAddingToAccountBalance" value="true"
+                                                        class="btn btn-secondary" data-bs-dismiss="modal">Remove with
+                                                    adding
+                                                </button>
+                                                <button type="submit" name="checkAddingToAccountBalance" value="false"
+                                                        class="btn btn-sm btn-danger">Delete without adding
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </button>
+
                             </form>
                         </div>
                     </div>

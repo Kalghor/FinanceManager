@@ -2,18 +2,13 @@ package pl.coderslab.FinanceManager.web.app;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.FinanceManager.domain.dto.AccountDto;
-import pl.coderslab.FinanceManager.domain.dto.CategoryDto;
 import pl.coderslab.FinanceManager.domain.model.Category;
 import pl.coderslab.FinanceManager.domain.model.User;
 import pl.coderslab.FinanceManager.service.AccountService;
 import pl.coderslab.FinanceManager.service.CategoryService;
 import pl.coderslab.FinanceManager.service.UserManagerService;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,11 +70,11 @@ public class DashBoardController {
         return resultList;
     }
 
-    private String sumCategoryValue(List<Category> categories) {
-        double sum = 0.0;
+    private Long sumCategoryValue(List<Category> categories) {
+        Double sum = 0.0;
         for (Category c : categories) {
-            sum += Double.parseDouble(c.getActualValue());
+            sum += c.getActualValue().doubleValue();
         }
-        return Double.toString(sum);
+        return sum.longValue();
     }
 }

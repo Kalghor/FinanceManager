@@ -24,7 +24,7 @@ public class Category {
     private String description;
 
     @Column(name = "actual_value")
-    private String actualValue;
+    private Long actualValue;
 
     @Column(name = "date")
     private LocalDate localDate;

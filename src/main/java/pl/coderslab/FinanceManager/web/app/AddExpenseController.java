@@ -47,9 +47,7 @@ public class AddExpenseController {
         User user = userManagerService.findByUsername(currentUser.getName());
         Category category = categoryConverter.convert(categoryDto);
         Account account = user.getAccount();
-        Double value = Double.parseDouble(category.getActualValue()) * 100d;
-        Long calegoryValue = value.longValue();
-        accountService.setBalance(account.getId(), account.getBalance() - calegoryValue);
+        accountService.setBalance(account.getId(), account.getBalance() - category.getActualValue());
         category.setAccount(account);
         categoryService.addExpense(category);
         return "redirect:dashboard";
