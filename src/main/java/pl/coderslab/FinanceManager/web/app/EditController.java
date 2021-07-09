@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.FinanceManager.domain.convarter.CategoryConverter;
 import pl.coderslab.FinanceManager.domain.dto.CategoryDto;
 import pl.coderslab.FinanceManager.domain.model.Category;
-import pl.coderslab.FinanceManager.domain.model.User;
 import pl.coderslab.FinanceManager.service.CategoryService;
 import pl.coderslab.FinanceManager.service.UserManagerService;
 
@@ -43,11 +42,8 @@ public class EditController {
             return "edit";
         }
         CategoryConverter categoryConverter = new CategoryConverter();
-        User user = userManagerService.findByUsername(currentUser.getName());
-//        Category category1 = new Category(categoryDto.getId(), categoryDto.getCategoryName(), categoryDto.getDescription(), categoryDto.getActualValue(), categoryDto.getLocalDate(), user.getAccount());
         Category category = categoryService.findCategoryById(categoryDto.getId());
         Category convertedCategory = categoryConverter.convert(categoryDto, category);
-//        category.setAccount();
         categoryService.edit(convertedCategory);
         return "redirect:dashboard";
     }

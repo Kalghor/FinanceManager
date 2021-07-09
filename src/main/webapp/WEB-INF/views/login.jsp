@@ -17,7 +17,7 @@
             <div class="col-xl-6 col-md-6 position-relative">
                 <label for="inputPassword5" class="form-label">Password</label>
                 <form:password path="password" class="form-control" id="inputPassword5" required="true"/>
-                    <form:errors cssClass="invalid-tooltip" path="password"/>
+                <form:errors cssClass="invalid-tooltip" path="password"/>
             </div>
         </div>
         <div class="row">
