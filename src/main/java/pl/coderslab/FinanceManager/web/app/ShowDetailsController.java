@@ -4,8 +4,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.FinanceManager.domain.model.Account;
 import pl.coderslab.FinanceManager.domain.model.Category;
 import pl.coderslab.FinanceManager.domain.model.User;
+import pl.coderslab.FinanceManager.service.AccountService;
 import pl.coderslab.FinanceManager.service.CategoryService;
 import pl.coderslab.FinanceManager.service.UserManagerService;
 
@@ -16,15 +18,27 @@ import java.util.List;
 public class ShowDetailsController {
 
     private final CategoryService categoryService;
-
-    public ShowDetailsController(CategoryService categoryService, UserManagerService userManagerService) {
-        this.categoryService = categoryService;
-        this.userManagerService = userManagerService;
-    }
-
+    private final AccountService accountService;
     private final UserManagerService userManagerService;
 
 
+    public ShowDetailsController(CategoryService categoryService, AccountService accountService, UserManagerService userManagerService) {
+        this.categoryService = categoryService;
+        this.accountService = accountService;
+        this.userManagerService = userManagerService;
+    }
+
+    @ModelAttribute(name = "totalValue")
+    public String totalCategoryValue(Authentication currentUser){
+        User user = userManagerService.findByUsername(currentUser.getName());
+        List<Category> categories = categoryService.findCategories(user.getId());
+        Long sum = 0L;
+        if(categories.isEmpty()){
+            return sum.toString();
+        }
+//        categories.forEach(category -> sum += category.getActualValue());
+        return "";
+    }
 
     @GetMapping("/showDetails/{categoryName}")
     public String showDetails(@PathVariable String categoryName, Authentication currentUser, Model model) {
@@ -35,10 +49,16 @@ public class ShowDetailsController {
     }
 
     @PostMapping("/delete")
-    public String deleteOneEntry(@RequestParam String id, @RequestParam String categoryName, Authentication currentUser) {
+    public String deleteOneEntry(@RequestParam String id, @RequestParam String categoryName, Authentication currentUser, @RequestParam String oldValue) {
         categoryService.deleteOneEntry(Long.valueOf(id));
         User user = userManagerService.findByUsername(currentUser.getName());
         List<Category> categoryByName = categoryService.findCategoryByName(categoryName, user.getAccount().getId());
+
+        Account account = user.getAccount();
+        Double doubleOldValue = Double.parseDouble(oldValue) * 100d;
+        accountService.setBalance(account.getId(), account.getBalance() + doubleOldValue.longValue());
+
+
         if(!categoryByName.isEmpty()){
             return "redirect:showDetails/" + categoryName;
         }

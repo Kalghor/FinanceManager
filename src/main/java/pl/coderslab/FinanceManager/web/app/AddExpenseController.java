@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.FinanceManager.domain.convarter.CategoryConverter;
 import pl.coderslab.FinanceManager.domain.dto.CategoryDto;
+import pl.coderslab.FinanceManager.domain.model.Account;
 import pl.coderslab.FinanceManager.domain.model.Category;
 import pl.coderslab.FinanceManager.domain.model.User;
+import pl.coderslab.FinanceManager.service.AccountService;
 import pl.coderslab.FinanceManager.service.CategoryService;
 import pl.coderslab.FinanceManager.service.UserManagerService;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/app")
@@ -23,10 +24,12 @@ public class AddExpenseController {
 
     private final UserManagerService userManagerService;
     private final CategoryService categoryService;
+    private final AccountService accountService;
 
-    public AddExpenseController(UserManagerService userManagerService, CategoryService categoryService) {
+    public AddExpenseController(UserManagerService userManagerService, CategoryService categoryService, AccountService accountService) {
         this.userManagerService = userManagerService;
         this.categoryService = categoryService;
+        this.accountService = accountService;
     }
 
     @GetMapping("/addExpense")
@@ -43,7 +46,11 @@ public class AddExpenseController {
         CategoryConverter categoryConverter = new CategoryConverter();
         User user = userManagerService.findByUsername(currentUser.getName());
         Category category = categoryConverter.convert(categoryDto);
-        category.setAccount(user.getAccount());
+        Account account = user.getAccount();
+        Double value = Double.parseDouble(category.getActualValue()) * 100d;
+        Long calegoryValue = value.longValue();
+        accountService.setBalance(account.getId(), account.getBalance() - calegoryValue);
+        category.setAccount(account);
         categoryService.addExpense(category);
         return "redirect:dashboard";
     }

@@ -41,7 +41,7 @@
                                                 <form action="/app/delete" method="POST">
                                                     <input type="hidden" name="id" value="${r.id}"/>
                                                     <input type="hidden" name="categoryName" value="${name}"/>
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                    <button type="submit" name="oldValue" value="${r.actualValue}" class="btn btn-danger">Delete</button>
                                                 </form>
                                             </div>
 

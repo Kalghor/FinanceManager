@@ -22,7 +22,7 @@
             <div class="p-3">
                 <form:errors class="alert alert-danger" role="alert" path="actualValue"/>
             </div>
-            <form:button class="btn btn-primary" type="submit">Add</form:button>
+            <form:button class="btn btn-primary" name="oldValue" value="${oldValue}" type="submit">Add</form:button>
         </form:form>
     </div>
 </div>
