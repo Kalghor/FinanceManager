@@ -16,7 +16,7 @@
             <div class="rounded border border-success align-items-center"
                  style="padding: 20px; display: inline-block; margin: 10px">
                     ${category.categoryName} </br>
-                    ${category.actualValue / 100} zl </br>
+                    ${category.actualValue} zl </br>
                 <a href="http://localhost:8080/app/showDetails/${category.categoryName}">
                     <button type="button" class="btn btn-primary btn-sm">Show details</button>
                 </a>

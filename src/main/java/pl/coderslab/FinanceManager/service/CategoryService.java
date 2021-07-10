@@ -27,7 +27,6 @@ public class CategoryService {
         return categoryRepository.findCategoriesByCategoryNameAndAccount_Id(categoryName, accountId);
     }
 
-    ;
 
     public List<String> findCategoryNames(Long accountId) {
         return categoryRepository.findDistinctByCategoryName(accountId);

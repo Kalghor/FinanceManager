@@ -73,7 +73,7 @@ public class DashBoardController {
     private Long sumCategoryValue(List<Category> categories) {
         Double sum = 0.0;
         for (Category c : categories) {
-            sum += c.getActualValue().doubleValue();
+            sum += c.getActualValue().doubleValue() / 100d;
         }
         return sum.longValue();
     }
