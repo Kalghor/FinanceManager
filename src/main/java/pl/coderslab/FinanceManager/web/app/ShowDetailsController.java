@@ -47,8 +47,11 @@ public class ShowDetailsController {
         return "showDetails";
     }
 
+    //TODO Wykorzystać klasę DTO zamiast zestaw parametrów, np. DeleteCategoryRequest, DeleteCategoryData, DeleteCategoryForm, DeleteCategoryDto
     @PostMapping("/delete")
     public String deleteOneEntry(@RequestParam String id, @RequestParam String categoryName, Authentication currentUser, @RequestParam String oldValue) {
+        //TODO Serwisy są bezmyślne i robią prostą operacje na bazie danych, a kontrolery są skomplikowane wykonując całą logikę
+        //     Powinno być całkowicie odwrotnie
         categoryService.deleteOneEntry(Long.valueOf(id));
         User user = userManagerService.findByUsername(currentUser.getName());
         List<Category> categoryByName = categoryService.findCategoryByName(categoryName, user.getAccount().getId());
@@ -74,6 +77,7 @@ public class ShowDetailsController {
         return "redirect:dashboard";
     }
 
+    //TODO To powinno być jako private, a nie public (i nie powinna być w kontrolerze :D )
     public Long totalCategoryValue(Authentication currentUser, String categoryName){
         User user = userManagerService.findByUsername(currentUser.getName());
         List<Category> categories = categoryService.findCategoryByName(categoryName,user.getAccount().getId());

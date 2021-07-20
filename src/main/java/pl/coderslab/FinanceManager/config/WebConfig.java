@@ -35,6 +35,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
+    //TODO To nie potrzebne - walidacja jest skonfigurowana w spring-boot-validation-starter
     @Bean
     public Validator validator(){
         return new LocalValidatorFactoryBean();

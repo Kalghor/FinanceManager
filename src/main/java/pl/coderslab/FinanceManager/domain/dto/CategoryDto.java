@@ -23,6 +23,7 @@ public class CategoryDto {
     @Pattern(regexp = "[a-zA-Z ]+")
     private String description;
 
+    //TODO Czemu to jest String a nie liczba, np. Double?
     @NotBlank
     @Pattern(regexp = "(^[1-9]{1,1}[0-9]+\\.[0-9]{1,2})||(^[1-9]\\d+)||([1-9]+)||(0\\.[0-9]{1,2})")
     private String actualValue;

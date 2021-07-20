@@ -32,6 +32,7 @@ public class AddExpenseController {
         this.accountService = accountService;
     }
 
+    //TODO Mylące jest to, że wydatek to kategoria :)
     @GetMapping("/addExpense")
     public String prepareAddExpense(Model model) {
         model.addAttribute("categoryDto", new CategoryDto());

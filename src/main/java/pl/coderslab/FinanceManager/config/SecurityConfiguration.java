@@ -36,9 +36,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/static","/static/**","/img","/img/**").permitAll()
+                .antMatchers("/css","/css/**","/images","/images/**").permitAll()
                 .antMatchers("/app/dashboard", "/app/dashboard/", "/app/dashboard/*").hasRole("USER")
-                .antMatchers("/static", "/static/**", "/webjars", "/webjars/**").permitAll()
+//                .antMatchers("/static", "/static/**", "/webjars", "/webjars/**").permitAll()
+                //TODO Tego nie robimy: zabezpieczamy ogólnie, "odbezpieczamy" szczegółowo/konkretnie
                 .antMatchers("/*").permitAll()
                 .anyRequest().authenticated()
                 .and()

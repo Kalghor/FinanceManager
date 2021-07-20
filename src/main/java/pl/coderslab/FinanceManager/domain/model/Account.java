@@ -20,6 +20,7 @@ public class Account {
 
     private Long balance = 0L;
 
+    //TODO Dla kolumn kluczy obcych lepiej używać notacji z prefiks/sufiks id
     @OneToOne
     @JoinColumn(name = "username")
     private User owner;

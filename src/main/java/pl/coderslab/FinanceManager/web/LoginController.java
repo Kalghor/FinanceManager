@@ -24,6 +24,7 @@ public class LoginController {
         return "login";
     }
 
+    //TODO Nie robimy POST, bo to jest po stronie Spring Security
     @PostMapping
     public String processLogin(@Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

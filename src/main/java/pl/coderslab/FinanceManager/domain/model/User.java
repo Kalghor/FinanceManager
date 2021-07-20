@@ -31,6 +31,10 @@ public class User {
     @NotBlank @Size(min = 3, max = 15)
     private String lastName;
     @Column(nullable = false)
+    //TODO Rzeczy niepotrzebne usuwamy, kodu się nie komentuje ;)
+    //TODO Pattern można mieć na Dto związanym z rejestracją użytkownika, bo wtedy
+    //     będzie dotyczyć danych wejściowych (czyli w plain text),
+    //     a tak dotyczy hasła zaszyfrowanego ;)
 //    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$")
     private String password;
     @Column(nullable = false)

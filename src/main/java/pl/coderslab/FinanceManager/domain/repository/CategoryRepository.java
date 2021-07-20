@@ -12,6 +12,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query("select c from Category c where c.account.id = ?1")
     List<Category> findAllByUsername(Long userId);
 
+    //TODO Nazwa metody nie do końca odpowiada temu co ona robi
     @Query("select DISTINCT c.categoryName from Category c where c.account.id = ?1")
     List<String> findDistinctByCategoryName(Long accountId);
 

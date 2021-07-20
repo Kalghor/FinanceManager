@@ -30,6 +30,8 @@ public class UserManagerService {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         user.setRole("ROLE_USER");
+        //TODO Lepiej zrobić jakąś metodę fabrykującą typu createNewAccount(user) zamiast przepychać
+        //     te nulle i 0-a
         Account account = new Account(null, 0L, user, null);
         accountRepository.save(account);
         user.setAccount(account);

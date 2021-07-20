@@ -17,6 +17,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //TODO Jesteśmy w encji Category, więc wystarczy name
     @Column(name = "category_name")
     private String categoryName;
 
