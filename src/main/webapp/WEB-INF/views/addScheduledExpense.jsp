@@ -20,7 +20,6 @@
             <div class="p-3" cssStyle="width: 350px; height: 10px">
                 <form:errors class="alert alert-danger" role="alert" path="actualValue"/>
             </div>
-
             <div class="row form-group">
                 <label for="date" class="">Start date: </label>
                 <div class="col-xl-8">
@@ -39,20 +38,19 @@
                     </Label>
                 </div>
             </div>
-
-                        <div class="row form-group d-none">
-                            <label for="date" class="">Stop date: </label>
-                            <div class="col-xl-8">
-                                <div class="input-group date" id="datepicker2">
-                                    <form:input type="text" class="form-control" id="formGroupExampleInput" path="schedulingStopDate" cssStyle="width: 200px" />
-                                    <span class="input-group-append">
-                                        <span class="input-group-text bg-white d-block">
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+            <div class="row form-group d-none">
+                <label for="date" class="">Stop date: </label>
+                    <div class="col-xl-8">
+                    <div class="input-group date" id="datepicker2">
+                        <form:input type="text" class="form-control" id="formGroupExampleInput" path="schedulingStopDate" cssStyle="width: 200px" />
+                        <span class="input-group-append">
+                            <span class="input-group-text bg-white d-block">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
             <form:button class="btn btn-primary" type="submit">Add</form:button>
         </form:form>
     </div>

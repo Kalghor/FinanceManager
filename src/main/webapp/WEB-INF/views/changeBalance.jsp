@@ -10,20 +10,20 @@
         <form:form method="post" modelAttribute="accountDto">
             <div class="mb-3">
                 <label>Amount to be added:
-                    <form:input type="text" class="form-control" pattern="(^[1-9]{1,1}[0-9]+\.[0-9]{1,2})||(^[1-9]\d+)||([1-9]+)||(0\.[0-9]{1,2})" title="Testowy tytul" id="formGroupExampleInput" path="amountToAdd"
+                    <form:input type="text" class="form-control" pattern="(^[1-9]{1,1}[0-9]+\.[0-9]{1,2})||(^[1-9]\d+)||([1-9]+)||(0\.[0-9]{1,2})" title="The value must be a positive number" id="formGroupExampleInput" path="amountToAdd"
                                 cssStyle="width: 500px"/>
                 </label>
                 <div class="pt-3">
-                    <form:errors class="alert alert-danger" role="alert" path="amountToAdd"/>
+                    <form:errors class="alert alert-danger d-none" role="alert" path="amountToAdd"/>
                 </div>
             </div>
             <div class="mb-3">
                 <label>Set the amount on the account
-                    <form:input type="text" class="form-control" pattern="(^[1-9]{1,1}[0-9]+\.[0-9]{1,2})||(^[1-9]\d+)||([1-9]+)||(0\.[0-9]{1,2})" title="Testowy tytul" id="formGroupExampleInput2" path="balance"
+                    <form:input type="text" class="form-control" pattern="(^[1-9]{1,1}[0-9]+\.[0-9]{1,2})||(^[1-9]\d+)||([1-9]+)||(0\.[0-9]{1,2})" title="The value must be a positive number" id="formGroupExampleInput2" path="balance"
                                 cssStyle="width: 500px"/>
                 </label>
                 <div class="pt-3">
-                    <form:errors class="alert alert-danger" role="alert" path="balance"/>
+                    <form:errors class="alert alert-dangerdanger d-none" role="alert" path="balance"/>
                 </div>
             </div>
             <c:if test="${not empty requiredParam}">
