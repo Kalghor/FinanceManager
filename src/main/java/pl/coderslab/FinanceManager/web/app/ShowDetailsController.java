@@ -61,6 +61,12 @@ public class ShowDetailsController {
         return "redirect:dashboard";
     }
 
+    @PostMapping("/deleteScheduled")
+    public String deleteOneScheduledEntry(@RequestParam String id, @RequestParam String categoryName, Authentication currentUser, @RequestParam String oldValue) {
+        categoryService.deleteOneEntry(Long.valueOf(id));
+        return "redirect:scheduledExpenses";
+    }
+
     @PostMapping("/deleteAll")
     public String deleteAllFromCategory(@RequestParam String categoryName, Authentication currentUser, @RequestParam String checkAddingToAccountBalance) {
         User user = userManagerService.findByUsername(currentUser.getName());

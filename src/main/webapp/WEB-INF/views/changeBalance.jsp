@@ -10,7 +10,7 @@
         <form:form method="post" modelAttribute="accountDto">
             <div class="mb-3">
                 <label>Amount to be added:
-                    <form:input type="text" class="form-control" id="formGroupExampleInput" path="amountToAdd"
+                    <form:input type="text" class="form-control" pattern="(^[1-9]{1,1}[0-9]+\.[0-9]{1,2})||(^[1-9]\d+)||([1-9]+)||(0\.[0-9]{1,2})" title="Testowy tytul" id="formGroupExampleInput" path="amountToAdd"
                                 cssStyle="width: 500px"/>
                 </label>
                 <div class="pt-3">
@@ -19,7 +19,7 @@
             </div>
             <div class="mb-3">
                 <label>Set the amount on the account
-                    <form:input type="text" class="form-control" id="formGroupExampleInput2" path="balance"
+                    <form:input type="text" class="form-control" pattern="(^[1-9]{1,1}[0-9]+\.[0-9]{1,2})||(^[1-9]\d+)||([1-9]+)||(0\.[0-9]{1,2})" title="Testowy tytul" id="formGroupExampleInput2" path="balance"
                                 cssStyle="width: 500px"/>
                 </label>
                 <div class="pt-3">

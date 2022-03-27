@@ -25,4 +25,5 @@ public class AccountService {
     public void setBalance(Long accountId, Long balance){
         accountRepository.findByUsername(accountId).setBalance(balance);
     }
+
 }

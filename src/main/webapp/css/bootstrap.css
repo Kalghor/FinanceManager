@@ -51,7 +51,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
-  background-color: #fff;
+  background-image:url("https://i.pinimg.com/736x/39/47/43/394743a419ea93a01d827e6d0d290812.jpg");
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -7423,8 +7423,7 @@ textarea.form-control-lg {
 }
 
 .bg-body {
-  background-color: #fff !important;
-}
+  background-image:url("https://i.pinimg.com/736x/39/47/43/394743a419ea93a01d827e6d0d290812.jpg");}
 
 .bg-white {
   background-color: #fff !important;

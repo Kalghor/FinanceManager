@@ -29,6 +29,18 @@ public class Category {
     @Column(name = "date")
     private LocalDate localDate;
 
+    @Column(name = "isScheduled")
+    private boolean isScheduled;
+
+    @Column(name = "scheduling_day")
+    private LocalDate schedulingDate;
+
+    @Column(name = "stop_scheduling_day")
+    private LocalDate schedulingStopDate;
+
+    @Column(name = "monthly_scheduling")
+    private boolean monthly;
+
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;

@@ -1,5 +1,6 @@
 package pl.coderslab.FinanceManager.web.app;
 
+import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +15,11 @@ import pl.coderslab.FinanceManager.domain.model.Category;
 import pl.coderslab.FinanceManager.domain.model.User;
 import pl.coderslab.FinanceManager.service.AccountService;
 import pl.coderslab.FinanceManager.service.CategoryService;
+import pl.coderslab.FinanceManager.service.ScheduleTaskService;
 import pl.coderslab.FinanceManager.service.UserManagerService;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/app")
@@ -49,6 +52,7 @@ public class AddExpenseController {
         Account account = user.getAccount();
         accountService.setBalance(account.getId(), account.getBalance() - category.getActualValue());
         category.setAccount(account);
+        category.setScheduled(false);
         categoryService.addExpense(category);
         return "redirect:dashboard";
     }

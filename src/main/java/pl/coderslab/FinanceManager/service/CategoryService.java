@@ -24,7 +24,7 @@ public class CategoryService {
     }
 
     public List<Category> findCategoryByName(String categoryName, Long accountId) {
-        return categoryRepository.findCategoriesByCategoryNameAndAccount_Id(categoryName, accountId);
+        return categoryRepository.findCategoriesByCategoryNameAndAccount_Id(accountId, categoryName);
     }
 
 
@@ -50,5 +50,9 @@ public class CategoryService {
 
     public void deleteAllFromCategory(String categoryName, Long accountId) {
         categoryRepository.deleteCategoriesByCategoryNameAndAccount_Id(categoryName, accountId);
+    }
+
+    public List<Category> getScheduledExpenses(Long accountId){
+        return categoryRepository.findCategoriesByIsScheduledAndAccount_Id(accountId);
     }
 }

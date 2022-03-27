@@ -1,10 +1,12 @@
 package pl.coderslab.FinanceManager.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
@@ -28,4 +30,12 @@ public class CategoryDto {
     private String actualValue;
 
     private LocalDate localDate;
+
+    private boolean isScheduled;
+
+    private String schedulingDate;
+
+    private String schedulingStopDate;
+
+    private boolean monthly;
 }
