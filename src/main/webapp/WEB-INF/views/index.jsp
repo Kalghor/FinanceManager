@@ -1,7 +1,7 @@
 <%@include file="header-start.jsp" %>
 <div class="my-5">
     <div class="container">
-        <div class="p-5 shadow-lg p-3 mb-5 bg-body rounded" style="width: 50%; margin: auto">
+        <div class="p-5 shadow-lg p-3 bg-body rounded" style="width: 50%; margin: auto; margin-top: 200px; margin-right: auto; margin-left: auto">
             <h2 class="p-2 d-flex justify-content-center">Welcome on main website :)</h2>
 
             <div class="d-flex justify-content-center">

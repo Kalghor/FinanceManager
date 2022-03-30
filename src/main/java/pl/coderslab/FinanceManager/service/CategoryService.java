@@ -3,9 +3,11 @@ package pl.coderslab.FinanceManager.service;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.FinanceManager.domain.model.Account;
 import pl.coderslab.FinanceManager.domain.model.Category;
 import pl.coderslab.FinanceManager.domain.repository.CategoryRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,5 +56,27 @@ public class CategoryService {
 
     public List<Category> getScheduledExpenses(Long accountId){
         return categoryRepository.findCategoriesByIsScheduledAndAccount_Id(accountId);
+    }
+
+    public void deleteAllScheduled(Long accountId){
+        categoryRepository.deleteAllScheduled(accountId);
+    }
+
+    public Long getLastCategoryIndex(Long accountId){
+        return  categoryRepository.findLastCategoryIndex(accountId);
+    }
+
+    public Category prepareCategoryForDemo(Account account){
+        Category category = new Category();
+        category.setId(9999L);
+        category.setActualValue(500L);
+        category.setMonthly(true);
+        category.setCategoryName("Demo scheduling");
+        category.setAccount(account);
+        category.setDescription("Demo test");
+        category.setLocalDate(LocalDate.now());
+        category.setScheduled(true);
+
+        return category;
     }
 }

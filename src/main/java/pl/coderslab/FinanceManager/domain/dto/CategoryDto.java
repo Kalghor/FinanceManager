@@ -18,15 +18,15 @@ public class CategoryDto {
     private Long id;
 
     @NotBlank
-    @Pattern(regexp = "[a-zA-Z ]+")
+//    @Pattern(regexp = "[a-zA-Z ]+")
     private String categoryName;
 
     @NotBlank
-    @Pattern(regexp = "[a-zA-Z ]+")
+//    @Pattern(regexp = "[a-zA-Z ]+")
     private String description;
 
     @NotBlank
-    @Pattern(regexp = "(^[1-9]{1,1}[0-9]+\\.[0-9]{1,2})||(^[1-9]\\d+)||([1-9]+)||(0\\.[0-9]{1,2})")
+//    @Pattern(regexp = "(^[1-9]{1,1}[0-9]+\\.[0-9]{1,2})||(^[1-9]\\d+)||([1-9]+)||(0\\.[0-9]{1,2})")
     private String actualValue;
 
     private LocalDate localDate;

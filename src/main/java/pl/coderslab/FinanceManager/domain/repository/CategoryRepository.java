@@ -34,4 +34,12 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Modifying
     @Query("delete from Category c where c.categoryName = ?1 and c.account.id = ?2 and c.isScheduled = 'true'")
     void deleteScheduledCategoriesByCategoryNameAndAccount_Id(String categoryName, Long accountId);
+
+    @Transactional
+    @Modifying
+    @Query("delete from Category c where c.account.id = ?1 and c.isScheduled = 'true'")
+    void deleteAllScheduled(Long accountId);
+
+    @Query("select MAX(c.id) from Category c where c.account.id = ?1 and c.isScheduled = 'true'")
+    Long findLastCategoryIndex(Long accountId);
 }

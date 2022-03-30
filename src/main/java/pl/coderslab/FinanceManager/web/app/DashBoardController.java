@@ -9,7 +9,6 @@ import pl.coderslab.FinanceManager.service.AccountService;
 import pl.coderslab.FinanceManager.service.CategoryService;
 import pl.coderslab.FinanceManager.service.UserManagerService;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +19,13 @@ public class DashBoardController {
     private final CategoryService categoryService;
     private final AccountService accountService;
     private final UserManagerService userManagerService;
+    private final ScheduledExpensesLoader scheduledExpensesLoader;
 
-    public DashBoardController(CategoryService categoryService, AccountService accountService, UserManagerService userManagerService) {
+    public DashBoardController(CategoryService categoryService, AccountService accountService, UserManagerService userManagerService, ScheduledExpensesLoader scheduledExpensesLoader) {
         this.categoryService = categoryService;
         this.accountService = accountService;
         this.userManagerService = userManagerService;
+        this.scheduledExpensesLoader = scheduledExpensesLoader;
     }
 
     @ModelAttribute("accountBalance")
@@ -37,6 +38,7 @@ public class DashBoardController {
 
     @ModelAttribute("categories")
     public List<Category> categories(Authentication currentUser) {
+
         return loadCategoriesToView(currentUser);
     }
 
@@ -50,6 +52,7 @@ public class DashBoardController {
         User user = userManagerService.findByUsername(currentUser.getName());
         List<String> categoryNames = categoryService.findCategoryNames(user.getId());
         List<Category> categories = categoryService.findCategories(user.getId());
+
         return categoryListGroupByCategoryName(categoryNames, categories);
     }
 

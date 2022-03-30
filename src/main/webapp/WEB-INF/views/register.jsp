@@ -1,5 +1,5 @@
 <%@include file="header-start.jsp" %>
-<div class="p-5 shadow-lg p-3 mb-5 bg-body rounded mt-5" style="width: 50%; margin: auto">
+<div class="p-5 shadow-lg p-3 bg-body rounded" style="width: 50%; margin: auto; margin-top: 150px; margin-right: auto; margin-left: auto">
     <form:form class="row g-3 needs-validation" method="post" modelAttribute="user" action="/register">
         <div class="row">
             <div class="col-xl-6 col-md-6 position-relative">

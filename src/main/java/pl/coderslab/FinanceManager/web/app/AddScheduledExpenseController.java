@@ -1,6 +1,5 @@
 package pl.coderslab.FinanceManager.web.app;
 
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +18,6 @@ import pl.coderslab.FinanceManager.service.ScheduleTaskService;
 import pl.coderslab.FinanceManager.service.UserManagerService;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/app")
@@ -55,9 +52,11 @@ public class AddScheduledExpenseController {
         Account account = user.getAccount();
         category.setAccount(account);
         category.setScheduled(true);
-        Runnable task = () -> addSchedulingExpense(user, category);
-        scheduleTaskService.addTaskToScheduler(235345, task, category.getSchedulingDate(), category.isMonthly(), category.getSchedulingStopDate());
         categoryService.addExpense(category);
+        Long lastCategoryIndex = categoryService.getLastCategoryIndex(account.getId());
+        Runnable task = () -> addSchedulingExpense(user, category);
+        scheduleTaskService.addTaskToScheduler(lastCategoryIndex.intValue(), task, category.getSchedulingDate(), category.isMonthly(), category.getSchedulingStopDate());
+
         return "redirect:scheduledExpenses";
     }
 
@@ -71,26 +70,21 @@ public class AddScheduledExpenseController {
     public String processAddDemoScheduledExpense(Authentication currentUser) {
         User user = userManagerService.findByUsername(currentUser.getName());
         Account account = user.getAccount();
-        Category category = new Category();
-        category.setScheduled(true);
+        Category category = categoryService.prepareCategoryForDemo(account);
 
-        Runnable task = () -> addDemoSchedulingExpense();
-        scheduleTaskService.addTaskToScheduler(235345, task);
+        Runnable task = () -> addDemoSchedulingExpense(category, currentUser);
+        scheduleTaskService.addTaskToScheduler(category.getId().intValue(), task);
+        categoryService.addExpense(category);
+
         return "redirect:dashboard";
     }
 
-    public String addDemoSchedulingExpense() {
-        User user = userManagerService.findByUsername("test@wp.pl");
+    public String addDemoSchedulingExpense(Category category, Authentication currentUser) {
+        User user = userManagerService.findByUsername(currentUser.getName());
         Account account = user.getAccount();
-        Category category = new Category();
-        category.setActualValue(500L);
-        category.setMonthly(true);
-        category.setCategoryName("Demo scheduling");
-        category.setAccount(account);
-        category.setDescription("Demo test");
-        category.setLocalDate(LocalDate.now());
-        category.setScheduled(false);
-        categoryService.addExpense(category);
+        Category categoryTmp = category;
+        categoryTmp.setScheduled(false);
+        categoryService.addExpense(categoryTmp);
         accountService.setBalance(account.getId(), account.getBalance() - 500L);
         return "redirect:dashboard";
     }

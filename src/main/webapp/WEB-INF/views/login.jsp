@@ -1,10 +1,10 @@
 <%@include file="header-start.jsp" %>
-<div class="p-5 shadow-lg p-3 mb-5 bg-body rounded mt-5" style="width: 50%; margin: auto">
+<div class="p-5 shadow-lg p-3 bg-body rounded" style="width: 50%; margin: auto; margin-top: 200px; margin-right: auto; margin-left: auto">
     <form:form class="row g-3 needs-validation d-flex justify-content-center" method="post" modelAttribute="user"
                action="/login">
         <div class="row">
             <div class="col-xl-6 col-md-6 position-relative">
-                <label for="validationTooltipUsername" class="form-label">Username</label>
+                <label for="validationTooltipUsername" class="form-label">Email</label>
                 <div class="input-group has-validation">
                     <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
                     <form:input path="username" type="text" class="form-control" id="validationTooltipUsername"

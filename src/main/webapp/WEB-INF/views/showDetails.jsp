@@ -1,11 +1,10 @@
 <%@include file="header.jsp" %>
-<div class="container-fluid p-5" style="width: 50%; margin: auto">
+<div class="container-fluid p-5" style="width: 50%; margin-top: 100px; margin-right: auto; margin-left: auto">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">${name}</h6>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
                 <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                     <div class="row">
                         <div class="col-sm-12">
@@ -112,7 +111,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>
