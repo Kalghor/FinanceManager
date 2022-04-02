@@ -26,7 +26,6 @@ public class AuthenticationSuccessHandlerImpl extends SimpleUrlAuthenticationSuc
 
     @Override
     public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
-        System.out.println("User Logged In");
 
     }
 

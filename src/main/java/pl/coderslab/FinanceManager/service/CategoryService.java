@@ -79,4 +79,19 @@ public class CategoryService {
 
         return category;
     }
+
+    public String validDate(String date){
+        String[] splitedDate = date.split("/");
+//        for(String s : splitedDate){
+//            if(s.length() == 1){
+//                s = "0" + s;
+//            }
+//        }
+        for(int i = 0; i < splitedDate.length; i++){
+            if(splitedDate[i].length() == 1){
+                splitedDate[i] = "0" + splitedDate[i];
+            }
+        }
+        return splitedDate[1] + "/" + splitedDate[0] + "/" + splitedDate[2];
+    }
 }

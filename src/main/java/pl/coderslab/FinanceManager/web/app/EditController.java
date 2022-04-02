@@ -62,7 +62,8 @@ public class EditController {
             accountService.setBalance(account.getId(), account.getBalance() + categoryValue);
         }
         categoryService.edit(convertedCategory);
-        return "redirect:dashboard";
+        String htmlToReturn = "showDetails" + "/" + category.getCategoryName();
+        return "redirect:" + htmlToReturn;
     }
 
 }

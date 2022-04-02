@@ -60,7 +60,7 @@ public class ScheduledDetailsController {
     }
 
     @PostMapping("/deleteScheduled")
-    public String deleteOneScheduledEntry(@RequestParam String id, @RequestParam String categoryName, Authentication currentUser, @RequestParam String oldValue) {
+    public String deleteOneScheduledEntry(@RequestParam String id) {
         scheduleTaskService.removeTaskFromScheduler(Integer.parseInt(id));
         categoryService.deleteOneEntry(Long.valueOf(id));
         return "redirect:scheduledExpenses";

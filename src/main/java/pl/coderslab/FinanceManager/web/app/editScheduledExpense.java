@@ -34,6 +34,7 @@ public class editScheduledExpense {
     public String prepareEditExpense(Model model, @PathVariable Long id) {
         CategoryConverter categoryConverter = new CategoryConverter();
         CategoryDto categoryDto = categoryConverter.convertToDto(categoryService.findCategoryById(id));
+        categoryDto.setSchedulingDate(categoryService.validDate(categoryDto.getSchedulingDate()));
         model.addAttribute("categoryDto", categoryDto);
         model.addAttribute("oldValue", categoryDto.getActualValue());
         return "editScheduledExpense";
@@ -63,7 +64,7 @@ public class editScheduledExpense {
             accountService.setBalance(account.getId(), account.getBalance() + categoryValue);
         }
         categoryService.edit(convertedCategory);
-        return "redirect:dashboard";
+        return "redirect:scheduledExpenses";
     }
 
 }

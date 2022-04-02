@@ -42,11 +42,32 @@
                                                             <button type="button" class="btn btn-warning">Edit</button>
                                                         </a>
                                                         <form action="/app/deleteScheduled" method="POST">
-                                                            <input type="hidden" name="id" value="${r.id}"/>
-                                                            <input type="hidden" name="categoryName" value="${name}"/>
-                                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                            <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#staticBackdrop${r.id}">
                                                                 Delete
                                                             </button>
+                                                            <div class="modal fade" id="staticBackdrop${r.id}" data-bs-backdrop="static"
+                                                                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2"
+                                                                     aria-hidden="true">
+                                                                 <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="staticBackdropLabel3">Delete expense</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            Do you want to delete scheduled expenses?
+                                                                        </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="submit"
+                                                                                    class="btn btn-sm btn-danger" name="id" value="${r.id}">Delete
+                                                                                </button>
+                                                                            </div>
+                                                                    </div>
+                                                                 </div>
+                                                            </div>
+                                                        </form>
+                                                        <form action="/app/deleteScheduled" method="POST">
+                                                            <input type="hidden" name="id" value="${r.id}"/>
                                                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
@@ -89,8 +110,8 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static"
-                                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2"
-                                                aria-hidden="true">
+                                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2"
+                                                    aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
