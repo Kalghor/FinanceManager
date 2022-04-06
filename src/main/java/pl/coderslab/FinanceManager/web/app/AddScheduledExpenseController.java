@@ -28,6 +28,8 @@ public class AddScheduledExpenseController {
     private final AccountService accountService;
     private final ScheduleTaskService scheduleTaskService;
 
+    private boolean isDemoSchedulingActive = false;
+
     public AddScheduledExpenseController(UserManagerService userManagerService, CategoryService categoryService, AccountService accountService, ScheduleTaskService scheduleTaskService) {
         this.userManagerService = userManagerService;
         this.categoryService = categoryService;
@@ -68,18 +70,23 @@ public class AddScheduledExpenseController {
 
     @GetMapping("/demoScheduledExpense")
     public String processAddDemoScheduledExpense(Authentication currentUser) {
-        User user = userManagerService.findByUsername(currentUser.getName());
-        Account account = user.getAccount();
-        Category category = categoryService.prepareCategoryForDemo(account);
+        if(!isDemoSchedulingActive){
+            User user = userManagerService.findByUsername(currentUser.getName());
+            Account account = user.getAccount();
+            Category category = categoryService.prepareCategoryForDemo(account);
 
-        Runnable task = () -> addDemoSchedulingExpense(category, currentUser);
-        scheduleTaskService.addTaskToScheduler(category.getId().intValue(), task);
-        categoryService.addExpense(category);
+            Runnable task = () -> addDemoSchedulingExpense(category, currentUser);
+            scheduleTaskService.addTaskToScheduler(category.getId().intValue(), task);
+            categoryService.addExpense(category);
+
+            isDemoSchedulingActive = true;
+        }
 
         return "redirect:dashboard";
     }
 
     public String addDemoSchedulingExpense(Category category, Authentication currentUser) {
+
         User user = userManagerService.findByUsername(currentUser.getName());
         Account account = user.getAccount();
         Category categoryTmp = category;

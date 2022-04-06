@@ -26,21 +26,3 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid justify-content-center">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link active" href="${pageContext.request.contextPath}/app/dashboard">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="${pageContext.request.contextPath}/app/scheduledExpenses">Scheduled expenses</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="${pageContext.request.contextPath}/app/demoScheduledExpense">Demo Scheduled expenses</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="${pageContext.request.contextPath}/logout">Logout</a>
-            </li>
-        </ul>
-    </div>
-</nav>

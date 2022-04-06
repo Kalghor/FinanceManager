@@ -38,11 +38,6 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             return "login";
         }
-//        if(counter == 0){
-////            User user = userManagerService.findByUsername(currentUser.getName());
-//            scheduledExpensesLoader.loadScheduledExpenses(user);
-//            counter++;
-//        }
         return "redirect:dashboard";
     }
 

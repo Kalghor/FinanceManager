@@ -1,4 +1,22 @@
 <%@include file="header.jsp" %>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid justify-content-center">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link active" style="color: #eae9eb" href="${pageContext.request.contextPath}/app/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" style="color: #eae9eb" href="${pageContext.request.contextPath}/app/scheduledExpenses">Scheduled expenses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" style="color: #eae9eb" href="${pageContext.request.contextPath}/app/demoScheduledExpense">Demo Scheduled expenses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" style="color: #eae9eb" href="${pageContext.request.contextPath}/removeDemo">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <div class="container-fluid" style="width: 50%; margin-top: 170px; margin-right: auto; margin-left: auto">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
